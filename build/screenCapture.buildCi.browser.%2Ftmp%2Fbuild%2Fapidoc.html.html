@@ -56,6 +56,15 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.element.twilio.twilio">
+            function <span class="apidocSignatureSpan"></span>twilio
+            <span class="apidocSignatureSpan">(sid, tkn, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.element.twilio.AccessToken">
             function <span class="apidocSignatureSpan">twilio.</span>AccessToken
             <span class="apidocSignatureSpan">(accountSid, keySid, secret, opts)</span>
@@ -221,6 +230,15 @@
             <a class="apidocElementLiA" href="#apidoc.element.twilio.TwimlResponse">
             function <span class="apidocSignatureSpan">twilio.</span>TwimlResponse
             <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.twilio.generate">
+            function <span class="apidocSignatureSpan">twilio.</span>generate
+            <span class="apidocSignatureSpan">(client, method, url)</span>
             </a>
 
         </li>
@@ -1079,6 +1097,28 @@
 
     </ol></li>
 
+    <li class="apidocModuleLi"><a href="#apidoc.module.twilio.generate">module twilio.generate</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.twilio.generate.generate">
+            function <span class="apidocSignatureSpan">twilio.</span>generate
+            <span class="apidocSignatureSpan">(client, method, url)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.twilio.generate.restFunctions">
+            function <span class="apidocSignatureSpan">twilio.generate.</span>restFunctions
+            <span class="apidocSignatureSpan">(object, client, methods, resource)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
     <li class="apidocModuleLi"><a href="#apidoc.module.twilio.utils">module twilio.utils</a><ol>
 
         <li>
@@ -1127,6 +1167,21 @@
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.twilio" id="apidoc.module.twilio">module twilio</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.twilio.twilio" id="apidoc.element.twilio.twilio">
+        function <span class="apidocSignatureSpan"></span>twilio
+        <span class="apidocSignatureSpan">(sid, tkn, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function initializer(sid, tkn, options) {
+    return new RestClient(sid, tkn, options);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 
     <h2>
@@ -1588,6 +1643,37 @@
         legalNodes:['Say', 'Play', 'Gather', 'Record', 'Sms', 'Dial', 'Enqueue', 'Task', 'Leave', 'Hangup', 'Redirect', 'Reject', '
 Pause', 'Message']
     });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.twilio.generate" id="apidoc.element.twilio.generate">
+        function <span class="apidocSignatureSpan">twilio.</span>generate
+        <span class="apidocSignatureSpan">(client, method, url)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">generate = function (client, method, url) {
+    return function () {
+        var args = process(arguments),
+            requestArgs = {
+                url:url,
+                method:method
+            };
+
+        //Send parameters, if supplied
+        if (args.twilioParams &amp;&amp; method === 'GET') {
+            requestArgs.qs = args.twilioParams;
+        } else if (args.twilioParams) {
+            requestArgs.form = args.twilioParams;
+        }
+
+        //make request
+        return client.request(requestArgs, args.callback);
+    };
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -2525,7 +2611,23 @@ protocol: 'https'
     // Return promise, but also support original node callback style
     return deferred.promise.nodeify(callback);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    if (args.twilioParams &amp;&amp; method === 'GET') {
+        requestArgs.qs = args.twilioParams;
+    } else if (args.twilioParams) {
+        requestArgs.form = args.twilioParams;
+    }
+
+    //make request
+    return client.<span class="apidocCodeKeywordSpan">request</span>(requestArgs, args.callback);
+};
+};
+
+//generate several rest functions on a given object
+generate.restFunctions = function (object, client, methods, resource) {
+for (var i = 0, l = methods.length; i &lt; l; i++) {
+    var method = methods[i];
+...</pre></li>
     </ul>
 
 
@@ -2825,7 +2927,23 @@ protocol: 'https'
     options.url = options.url + '.json';
     return RestClient.super_.prototype.request.call(this, options, callback);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    if (args.twilioParams &amp;&amp; method === 'GET') {
+        requestArgs.qs = args.twilioParams;
+    } else if (args.twilioParams) {
+        requestArgs.form = args.twilioParams;
+    }
+
+    //make request
+    return client.<span class="apidocCodeKeywordSpan">request</span>(requestArgs, args.callback);
+};
+};
+
+//generate several rest functions on a given object
+generate.restFunctions = function (object, client, methods, resource) {
+for (var i = 0, l = methods.length; i &lt; l; i++) {
+    var method = methods[i];
+...</pre></li>
     </ul>
 
 
@@ -3603,6 +3721,98 @@ instead');
     this.timeout = timeout || 31000; // request timeout in milliseconds
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.twilio.generate" id="apidoc.module.twilio.generate">module twilio.generate</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.twilio.generate.generate" id="apidoc.element.twilio.generate.generate">
+        function <span class="apidocSignatureSpan">twilio.</span>generate
+        <span class="apidocSignatureSpan">(client, method, url)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">generate = function (client, method, url) {
+    return function () {
+        var args = process(arguments),
+            requestArgs = {
+                url:url,
+                method:method
+            };
+
+        //Send parameters, if supplied
+        if (args.twilioParams &amp;&amp; method === 'GET') {
+            requestArgs.qs = args.twilioParams;
+        } else if (args.twilioParams) {
+            requestArgs.form = args.twilioParams;
+        }
+
+        //make request
+        return client.request(requestArgs, args.callback);
+    };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.twilio.generate.restFunctions" id="apidoc.element.twilio.generate.restFunctions">
+        function <span class="apidocSignatureSpan">twilio.generate.</span>restFunctions
+        <span class="apidocSignatureSpan">(object, client, methods, resource)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">restFunctions = function (object, client, methods, resource) {
+    for (var i = 0, l = methods.length; i &lt; l; i++) {
+        var method = methods[i];
+
+        //can be either a string indicating an HTTP method to generate,
+        //or an object mapping a function name to an HTTP verb
+        if (typeof method === 'string') {
+            if (method === 'GET') {
+                object.get = object.list = generate(client, method, resource);
+            } else if (method === 'POST') {
+                object.post = generate(client, method, resource);
+            } else if (method === 'PUT') {
+                object.put = generate(client, method, resource);
+            } else if (method === 'DELETE') {
+                object.delete = generate(client, method, resource);
+            }
+        }
+        else {
+            //Create an alias for the given method name to a REST function
+            for (var key in method) {
+            	// fixed issue for null Properties.
+                if(method.hasOwnProperty(key))
+                    object[key] = object[method[key].toLowerCase()];
+            }
+        }
+    }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+     @param {string} accountSid - The specific account for which to scope requests
+     */
+    function Accounts(accountSid) {
+//This is the resource for accounts aside from the default master account
+var resourceApi = {};
+
+//generate REST function calls for the appropriate resource
+generate.<span class="apidocCodeKeywordSpan">restFunctions</span>(resourceApi, client, ['GET', 'PUT', '
+POST'], '/Accounts/' + accountSid);
+resourceApi.update = resourceApi.post;
+resourceApi.list = resourceApi.get;
+
+//Mix in sub resources
+mixinResources(resourceApi, accountSid);
+
+//Return resource API, plus sub-resources
+...</pre></li>
     </ul>
 
 
